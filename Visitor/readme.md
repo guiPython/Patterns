@@ -39,17 +39,9 @@ pattern possivel. Antes vou apresentar as classes.
         +Decimal Valor
     }
     
-    class Carro{
-    
-    }
-    
-    class Moto{
-    
-    }
-    
-    class Monociclo{
-    
-    }
+    class Carro
+    class Moto
+    class Monociclo
     
     Veiculo <|-- Carro
     Veiculo <|-- Moto
