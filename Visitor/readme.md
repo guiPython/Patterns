@@ -37,11 +37,17 @@ pattern possivel. Antes vou apresentar as classes.
         +Decimal Valor
     }
     
-    class Carro
+    class Carro{
     
-    class Moto
+    }
     
-    class Monociclo
+    class Moto{
+    
+    }
+    
+    class Monociclo{
+    
+    }
     
     Veiculo <|-- Carro
     Veiculo <|-- Moto
@@ -110,6 +116,8 @@ porém vamos criar muitas estratégias se quisermos fazer isso de maneira corret
 ou seja, cada estado vai tratar de 3 categorias distintas de carros portando generalizanado teriamos n * m estratégias, um verdadeiro
 caos quando o sistema crescer. Vou fazer o diagrama de UML e você vai ver a representação gráfica do que falei.
 
+### IImposto
+
 ```mermaid
 classDiagram
 
@@ -124,9 +132,9 @@ class ImpostoMotoSaoPaulo
 
 class ImpostoMonocicloSaoPaulo
 
-IImposto <|--ImpostoCarroSaoPaulo
-IImposto <|--ImpostoMotoSaoPaulo
-IImposto <|--ImpostoMonocicloSaoPaulo
+IImposto <|-- ImpostoCarroSaoPaulo
+IImposto <|-- ImpostoMotoSaoPaulo
+IImposto <|-- ImpostoMonocicloSaoPaulo
 
 ```
 ```mermaid
@@ -143,9 +151,9 @@ class ImpostoMotoRioDeJaneiro
 
 class ImpostoMonocicloRioDeJaneiro
 
-IImposto <|--ImpostoCarroRioDeJaneiro
-IImposto <|--ImpostoMotoRioDeJaneiro
-IImposto <|--ImpostoMonocicloRioDeJaneiro
+IImposto <|-- ImpostoCarroRioDeJaneiro
+IImposto <|-- ImpostoMotoRioDeJaneiro
+IImposto <|-- ImpostoMonocicloRioDeJaneiro
 
 ```
 ```mermaid
@@ -162,10 +170,13 @@ class ImpostoMotoMatoGrosso
 
 class ImpostoMonocicloMatoGrosso
 
-IImposto <|--ImpostoCarroMatoGrosso
-IImposto <|--ImpostoMotoMatoGrosso
-IImposto <|--ImpostoMonocicloMatoGrosso
+IImposto <|-- ImpostoCarroMatoGrosso
+IImposto <|-- ImpostoMotoMatoGrosso
+IImposto <|-- ImpostoMonocicloMatoGrosso
+
 ```
+
+### IComissao
 
 ```mermaid
 classDiagram
@@ -184,6 +195,7 @@ class ComissaoMonocicloSaoPaulo
 IComissao <|--ComissaoCarroSaoPaulo
 IComissao <|--ComissaoMotoSaoPaulo
 IComissao <|--ComissaoMonocicloSaoPaulo
+
 ```
 ```mermaid
 classDiagram
@@ -199,9 +211,10 @@ class ComissaoMotoRioDeJaneiro
 
 class ComissaoMonocicloRioDeJaneiro
 
-IComissao <|--ComissaoCarroRioDeJaneiro
-IComissao <|--ComissaoMotoRioDeJaneiro
-IComissao <|--ComissaoMonocicloRioDeJaneiro
+IComissao <|-- ComissaoCarroRioDeJaneiro
+IComissao <|-- ComissaoMotoRioDeJaneiro
+IComissao <|-- ComissaoMonocicloRioDeJaneiro
+
 ```
 ```mermaid
 classDiagram
@@ -217,9 +230,9 @@ class ComissaoMotoMatoGrosso
 
 class ComissaoMonocicloMatoGrosso
 
-IComissao <|--ComissaoCarroMatoGrosso
-IComissao <|--ComissaoMotoMatoGrosso
-IComissao <|--ComissaoMonocicloMatoGrosso
+IComissao <|-- ComissaoCarroMatoGrosso
+IComissao <|-- ComissaoMotoMatoGrosso
+IComissao <|-- ComissaoMonocicloMatoGrosso
 
 ```
 Perceba que cada estado brasileiro tem 3 implementações concretas para cada estratégia (__IImposto__ e __IComissao__) e cada vez que pensarmos em vender algo novo em uma localidade são duas implementações concretas que temos que fazer, a vantagem de usar esse pattern é que se quisermos vender algo somente em São Paulo podemos fazer somente mais 2 implementações sem quebrar as implementações do Rio de Janeiro e Mato Grosso, porém como eu disse é praticamente impraticavel utilizar esse pattern pela quantidade de implementações diferentes que vamos ter quando o sistema crescer.
@@ -324,7 +337,10 @@ Client --> Visitor
 Client --> Element
 Element <|-- ConcreteElementA
 Element <|-- ConcreteElementB
-```Vamos olhar para classe abstrata __Visitor__ lembra do nosso problema onde cada estado tinha uma implementação diferente de imposto e comissão? Que tal se a gente criar visitor especificos para cara estado? Antes disso vamos entender porque isso é uma boa ideia. O __Visitor__ tem um método chamado __Visit ( )__ que tem duas sobrecargas uma recebendo o elemento A e outra recebendo o elemento B certo? Agora pena e se nossos métodos __Visit ()__ recebessem carros, motos e monociclos ? Pois é olha que belezinha porque agora nosso métodos recebem nossos produtos, mas e como resolvemos o problema dos estados? Simples olha la no diagrama que beleza, cada estado pode ser uma classe concreta de __Visitor__. Vamos ver o diagrama adaptado ao nosso problema.
+
+```
+Vamos olhar para classe abstrata __Visitor__ lembra do nosso problema onde cada estado tinha uma implementação diferente de imposto e comissão? Que tal se a gente criar visitor especificos para cara estado? Antes disso vamos entender porque isso é uma boa ideia. O __Visitor__ tem um método chamado __Visit ( )__ que tem duas sobrecargas uma recebendo o elemento A e outra recebendo o elemento B certo? Agora pena e se nossos métodos __Visit ()__ recebessem carros, motos e monociclos ? Pois é olha que belezinha porque agora nosso métodos recebem nossos produtos, mas e como resolvemos o problema dos estados? Simples olha la no diagrama que beleza, cada estado pode ser uma classe concreta de __Visitor__. Vamos ver o diagrama adaptado ao nosso problema.
+
 ## Aplicação
 Ao invés de criar o __Visitor__ como classe vou gerar uma interface, o resultado final é o mesmo nesse caso.
 ```mermaid
