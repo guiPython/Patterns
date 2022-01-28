@@ -4,8 +4,7 @@
 ## Problema Proposto
 O modelo de problema proposto é de uma loja de carros.
 
-Pense que temos uma separação de alguns tipos de produtos (carros) e que cada um destes
-tipos de produtos são separados em mais grupos, como esportivos, convencionais ou luxo. Esses tipos 
+Pense que temos uma separação de alguns tipos de produtos (carros, motos e monociclos). Esses tipos 
 são separados assim pois nossa loja de carros vai atuar em 3 estados brasileiros distintos e cada um deles
 cobra uma taxa especifica de imposto, outro ponto é que nossos vendedores tem comissões especificas em cada
 estado.
@@ -98,7 +97,7 @@ class Vendedor{
             }
         }
         
-        return Salario - comissao - imposto;
+        return Salario - comissao + imposto;
     }
 }
 ```
@@ -270,11 +269,11 @@ public class ComissaoMotoRioDeJaneiro : IComissao {
 }
 
 public class ImpostoCarroRioDeJaneiro : IImposto {
-    public decimal CalcularImposto(Carro carro) => 0.15 * carro.Valor;
+    public decimal CalcularImposto(Moto moto) => 0.15 * moto.Valor;
 }
 
 public class ComissaoCarroRioDeJaneiro : IComissao {
-    public decimal CalcularComissao(Carro carro) => 0.05 * carro.Valor;
+    public decimal CalcularComissao(Moto moto) => 0.05 * moto.Valor;
 }
 ```
 
@@ -289,11 +288,11 @@ public class ComissaoMotoSaoPaulo : IComissao {
 }
 
 public class ImpostoCarroSaoPaulo : IImposto {
-    public decimal CalcularImposto(Carro carro) => 0.19 * carro.Valor;
+    public decimal CalcularImposto(Moto moto) => 0.19 * moto.Valor;
 }
 
 public class ComissaoCarroSaoPaulo : IComissao {
-    public decimal CalcularComissao(Carro carro) => 0.09 * carro.Valor;
+    public decimal CalcularComissao(Moto moto) => 0.09 * moto.Valor;
 }
 ```
 #### Vendedor Implementação
@@ -303,8 +302,8 @@ class Vendedor{
     public Estados Estado {get; set;}
     public decimal Salario {get; set;}
     
-    public decimal Vender(Veiculo carro, IImposto imposto, IComissao comissao){
-        return Salario - comissao.CalcularComissao() + imposto.CalcularImposto();
+    public decimal Vender(Veiculo veiculo, IImposto imposto, IComissao comissao){
+        return Salario - comissao.CalcularComissao(veiculo) + imposto.CalcularImposto(veiculo);
     }
 }
 ```
