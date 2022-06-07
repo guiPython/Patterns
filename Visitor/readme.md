@@ -57,7 +57,7 @@ class Vendedor{
     public Estados Estado {get; set;}
     public decimal Salario {get; set;}
     
-    public decimal Vender(Veiculo carro){
+    public decimal Vender(Veiculo veiculo){
         decimal comissao = 0.0;
         decimal imposto = 0.0;
         
@@ -174,7 +174,10 @@ IImposto <|-- ImpostoMonocicloMatoGrosso
 
 ### IComissao
 #### São Paulo
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 ```mermaid
 classDiagram
