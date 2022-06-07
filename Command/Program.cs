@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿using Principal;
 using Commands;
 
@@ -46,3 +47,25 @@ Console.ForegroundColor = ConsoleColor.Yellow;
 Console.Write($"usando DesfazerTudo.\n");
 Console.ForegroundColor = ConsoleColor.White;
 Console.WriteLine(carrinho);
+=======
+﻿using Models;
+using Commands;
+
+var produto = new Product("TV", 8592.9m, 10);
+var estoque = new List<Product>(){produto};
+var carrinho = new List<Product>();
+
+var manager = new Manager();
+var addProduct = new AddProduct(estoque, carrinho, produto);
+
+Console.WriteLine($"Estoque: {estoque.First()}");
+Console.WriteLine($"Carrinho: {carrinho.Find(p => p.Name == produto.Name)}\n");
+
+manager.Invoke(addProduct);
+Console.WriteLine($"Estoque: {estoque.First()}");
+Console.WriteLine($"Carrinho: {carrinho.Find(p => p.Name == produto.Name)}\n");
+
+manager.Undo();
+Console.WriteLine($"Estoque: {estoque.First()}");
+Console.WriteLine($"Carrinho: {carrinho.Find(p => p.Name == produto.Name)}");
+>>>>>>> Stashed changes
